@@ -1,6 +1,8 @@
 import Navbar from "./Navbar";
 import Textform from "./Textform";
 import Alert1 from "./Alert1";
+import About from "./About";
+import Contact from "./Contact";
 import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 
@@ -38,6 +40,9 @@ function App() {
 
       <Routes>
         <Route path="/Textform" element={<Textform dark={dark} title="Enter Your Text" />} />
+        <Route path="/About" element={<About />} />
+        <Route path="/Contact" element={<Contact />} />
+
       </Routes>
 
     </div>

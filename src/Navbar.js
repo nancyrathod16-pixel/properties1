@@ -35,14 +35,14 @@ export default function Navbar(props) {
             </li>
 
              <li className="nav-item">
-              <Link className="nav-link" to="/" style={{ color: props.color }}>
+              <Link className="nav-link" to="/About" style={{ color: props.color }}>
                 About
               </Link>
             </li>
 
             <li className="nav-item">
-              <Link className="nav-link" to="/" style={{ color: props.color }}>
-                Link
+              <Link className="nav-link" to="/Contact" style={{ color: props.color }}>
+                Contact
               </Link>
             </li>
 
