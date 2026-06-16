@@ -3,6 +3,8 @@ import translate from "translate";
 
 export default function Textform(props) {
   const [text, setText] = useState("");
+const [recognition, setRecognition] = useState(null);
+
 
   const onUpclick = () => {
     console.log("Your function Click!!!!");
@@ -75,6 +77,70 @@ export default function Textform(props) {
     setIsBold(!isBold);
   };
 
+//   const startListening = () => {
+//   const SpeechRecognition =
+//     window.SpeechRecognition || window.webkitSpeechRecognition;
+
+//   if (!SpeechRecognition) {
+//     alert("Speech Recognition is not supported in this browser.");
+//     return;
+//   }
+
+//   const recognition = new SpeechRecognition();
+
+//   recognition.lang = "en-US";
+//   recognition.continuous = false;
+//   recognition.interimResults = false;
+
+//   recognition.start();
+
+//   recognition.onresult = (event) => {
+//     const transcript = event.results[0][0].transcript;
+//     setText((prevText) => prevText + " " + transcript);
+//   };
+
+//   recognition.onerror = (event) => {
+//     console.log(event.error);
+//   };
+// };
+const startListening = () => {
+  const SpeechRecognition =
+    window.SpeechRecognition || window.webkitSpeechRecognition;
+
+  if (!SpeechRecognition) {
+    alert("Speech Recognition is not supported in this browser.");
+    return;
+  }
+
+  const recog = new SpeechRecognition();
+
+  recog.lang = "en-US";
+  recog.continuous = true;
+  recog.interimResults = false;
+
+  setRecognition(recog);
+
+  recog.start();
+
+  recog.onresult = (event) => {
+    let transcript = "";
+
+    for (let i = event.resultIndex; i < event.results.length; i++) {
+      transcript += event.results[i][0].transcript;
+    }
+
+    setText((prevText) => prevText + " " + transcript);
+  };
+
+  recog.onerror = (event) => {
+    console.log(event.error);
+  };
+};
+const stopListening = () => {
+  if (recognition) {
+    recognition.stop();
+  }
+};
   return (
     <>
       <div>
@@ -130,6 +196,21 @@ export default function Textform(props) {
         >
           Dark Mode
         </button>
+
+       <button
+  className="btn btn-success mt-3 mx-3"
+  onClick={startListening}
+>
+  🎙️ Speech to Text
+</button>
+
+<button
+  className="btn btn-danger mt-3 mx-3"
+  onClick={stopListening}
+>
+  ⏹️ Stop Recording
+</button>
+
       </div>
 
       <div className="container-fluid">
